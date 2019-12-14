@@ -15,9 +15,14 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <title>Alta Prestamos</title>
 </head>
+<style>
+    body {
+        background-image: url("assets/fondo2.jpg");
+    }
+</style>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="principal.html">Biblioteca</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                           <span class="navbar-toggler-icon"></span>
@@ -92,7 +97,7 @@
             e.stopImmediatePropagation();
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:3000/prestamo',
+                url: 'https://biblioteca-181224.herokuapp.com/prestamo',
                 data: $('form').serialize(),
                 beforeSend: function(request) {
                     request.setRequestHeader("token", window.localStorage.getItem('token'));
@@ -116,7 +121,7 @@
         });
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:3000/usuario',
+            url: 'https://biblioteca-181224.herokuapp.com/usuario',
             data: $('form').serialize(),
             beforeSend: function(request) {
                 request.setRequestHeader("token", window.localStorage.getItem('token'));
@@ -135,7 +140,7 @@
         });
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:3000/libro',
+            url: 'https://biblioteca-181224.herokuapp.com/libro',
             data: $('form').serialize(),
             beforeSend: function(request) {
                 request.setRequestHeader("token", window.localStorage.getItem('token'));

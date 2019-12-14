@@ -11,6 +11,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>Login</title>
 </head>
+<style>
+    body {
+        background-image: url("assets/fondo2.jpg");
+    }
+</style>
 
 <body>
     <div class="container-fluid">
@@ -34,7 +39,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:3000/login',
+                url: 'https://biblioteca-181224.herokuapp.com/login',
                 data: $('form').serialize(),
                 success: function(resp) {
                     window.localStorage.setItem('token', resp.token);

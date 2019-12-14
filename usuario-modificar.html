@@ -11,9 +11,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>Modificar Usuarios</title>
 </head>
+<style>
+    body {
+        background-image: url("assets/fondo2.jpg");
+    }
+</style>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="principal.html">Biblioteca</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                           <span class="navbar-toggler-icon"></span>
@@ -79,7 +84,6 @@
                     <input type="text" name="nombre" class="form-control" placeholder="Por favor ingresa tu nombre" required><br>
                     <input type="email" name="email" class="form-control" placeholder="Por favor ingresa tu email" required><br>
                     <input type="password" name="password" class="form-control" placeholder="Por favor ingresa tu contraseña" required><br>
-                    <input type="file" name="archivo" class="form-control" required><br>
                     <button type="submit" class="btn btn-info">Enviar</button>
                 </form>
             </div>
@@ -97,7 +101,7 @@
 
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:3000/usuario',
+            url: 'https://biblioteca-181224.herokuapp.com/usuario',
             beforeSend: function(request) {
                 request.setRequestHeader("token", window.localStorage.getItem('token'));
             },
@@ -119,7 +123,7 @@
 
             $.ajax({
                 type: 'PUT',
-                url: 'http://localhost:3000/usuario',
+                url: 'https://biblioteca-181224.herokuapp.com/usuario',
                 data: $('form').serialize(),
                 beforeSend: function(request) {
                     request.setRequestHeader("token", window.localStorage.getItem('token'));
