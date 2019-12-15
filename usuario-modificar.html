@@ -101,7 +101,7 @@
 
         $.ajax({
             type: 'GET',
-            url: 'https://biblioteca-181224.herokuapp.com/usuario',
+            url: 'http://localhost:3000/usuario',
             beforeSend: function(request) {
                 request.setRequestHeader("token", window.localStorage.getItem('token'));
             },
@@ -123,7 +123,7 @@
 
             $.ajax({
                 type: 'PUT',
-                url: 'https://biblioteca-181224.herokuapp.com/usuario',
+                url: 'http://localhost:3000/usuario',
                 data: $('form').serialize(),
                 beforeSend: function(request) {
                     request.setRequestHeader("token", window.localStorage.getItem('token'));

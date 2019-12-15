@@ -78,31 +78,63 @@
         </div>
 
     </div>
-    <script type="text/javascript">
-        $('form').on('submit', function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
+    <table class="">
+        <tbody id="action"></tbody>
+    </table>
+    <p id="error" style="color: red; display:none;"></p>
 
-            $.ajax({
-                type: 'GET',
-                url: 'https://biblioteca-181224.herokuapp.com/prestamo',
-                data: $('form').serialize(),
-                beforeSend: function(request) {
-                    request.setRequestHeader("token", window.localStorage.getItem('token'));
-                },
-                success: function(resp) {
-                    alert("Libro registrado con exito!");
-                },
-                error: function(err) {
-                    $('#error').text(err.responseJSON.err.message);
-                    $('#error').show();
+    <script type="text/x-handlebars-template" id="index">
+
+        <th style="position: absolute;" scope="row"> <img src='{{{ img }}}' width="100px" height="150"><br>{{{ nombre }}} <br>{{{ autor }}} <br> {{{ editorial }}} <br> {{{ categoria }}} <br> {{{ fecha }}}</th>
+
+
+
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
+    <script src="templatesCompiled.js"></script>
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js">
+    </script>
+
+    <script type="text/javascript">
+        var template = document.getElementById('index').innerHTML;
+        var compile = Handlebars.compile(template);
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:3000/libro',
+            beforeSend: function(request) {
+                request.setRequestHeader("token", window.localStorage.getItem('token'));
+            },
+            success: function(resp) {
+
+                for (var i = 0; i < resp.count; i++) {
+                    var compileHTML = compile({
+                        id: resp.libro[i]._id,
+                        img: "http://localhost:3000/imagen/libro/" + resp.libro[i].img,
+                        titulo: resp.libro[i].nombre,
+                        editorial: resp.libro[i].editorial,
+                    });
+
+                    document.getElementById('action').innerHTML += compileHTML;
                 }
-            });
+
+            },
+            error: function(err) {
+                $('#error').text(err.responseJSON.err.message);
+                $('#error').show();
+
+
+
+            }
         });
 
-        $('input').on('focus', function(e) {
+
+
+        $('select').on('focus', function(e) {
             $('#error').hide();
-        })
+        });
     </script>
 </body>
 
