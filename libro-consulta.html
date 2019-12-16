@@ -74,36 +74,36 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-
         </div>
-
     </div>
-    <table class="">
-        <tbody id="action"></tbody>
-    </table>
-    <p id="error" style="color: red; display:none;"></p>
-
-    <script type="text/x-handlebars-template" id="index">
-
-        <th style="position: absolute;" scope="row"> <img src='{{{ img }}}' width="100px" height="150"><br>{{{ nombre }}} <br>{{{ autor }}} <br> {{{ editorial }}} <br> {{{ categoria }}} <br> {{{ fecha }}}</th>
-
-
-
-
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
-    <script src="templatesCompiled.js"></script>
-
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js">
     </script>
+    <table style="position: relative;" class="table table-striped">
+        <thead>
+            <tr style="text-align: center;">
+                <th scope="col">Foto</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Editorial</th>
+            </tr>
+        </thead>
+        <tbody id="action"></tbody>
+    </table>
+    <script type="text/x-handlebars-template" id="index">
+        <tr style="border:blue 2px solid; text-align: center;">
+            <th scope="row"> <img src='{{{ img }}}' width="100px" height="150"></th>
+            <td style="vertical-align: middle;"> {{{ nombre }}}</td>
+            <td style="vertical-align: middle;"> {{{ editorial }}}</td>
+        </tr>
 
+
+    </script>
     <script type="text/javascript">
         var template = document.getElementById('index').innerHTML;
         var compile = Handlebars.compile(template);
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:3000/libro',
+            url: 'https://biblioteca-181224.herokuapp.com/libro',
             beforeSend: function(request) {
                 request.setRequestHeader("token", window.localStorage.getItem('token'));
             },
@@ -112,28 +112,13 @@
                 for (var i = 0; i < resp.count; i++) {
                     var compileHTML = compile({
                         id: resp.libro[i]._id,
-                        img: "http://localhost:3000/imagen/libro/" + resp.libro[i].img,
-                        titulo: resp.libro[i].nombre,
+                        img: "https://biblioteca-181224.herokuapp.com/imagen/libro/" + resp.libro[i].img,
+                        nombre: resp.libro[i].nombre,
                         editorial: resp.libro[i].editorial,
                     });
-
                     document.getElementById('action').innerHTML += compileHTML;
                 }
-
-            },
-            error: function(err) {
-                $('#error').text(err.responseJSON.err.message);
-                $('#error').show();
-
-
-
             }
-        });
-
-
-
-        $('select').on('focus', function(e) {
-            $('#error').hide();
         });
     </script>
 </body>

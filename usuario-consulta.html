@@ -78,31 +78,49 @@
         </div>
 
     </div>
+    script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js">
+    </script>
+    <table style="position: relative;" class="table table-striped">
+        <thead>
+            <tr style="text-align: center;">
+                <th scope="col">Foto</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+            </tr>
+        </thead>
+        <tbody id="action"></tbody>
+    </table>
+    <script type="text/x-handlebars-template" id="index">
+        <tr style="border:blue 2px solid; text-align: center;">
+            <th scope="row"> <img src='{{{ img }}}' width="100px" height="150"></th>
+            <td style="vertical-align: middle;"> {{{ nombre }}}</td>
+            <td style="vertical-align: middle;"> {{{ email }}}</td>
+        </tr>
+
+
+    </script>
     <script type="text/javascript">
-        $('form').on('submit', function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
+        var template = document.getElementById('index').innerHTML;
+        var compile = Handlebars.compile(template);
+        $.ajax({
+            type: 'GET',
+            url: 'https://biblioteca-181224.herokuapp.com/usuario',
+            beforeSend: function(request) {
+                request.setRequestHeader("token", window.localStorage.getItem('token'));
+            },
+            success: function(resp) {
 
-            $.ajax({
-                type: 'GET',
-                url: 'https://biblioteca-181224.herokuapp.com/usuario',
-                data: $('form').serialize(),
-                beforeSend: function(request) {
-                    request.setRequestHeader("token", window.localStorage.getItem('token'));
-                },
-                success: function(resp) {
-                    alert("Libro registrado con exito!");
-                },
-                error: function(err) {
-                    $('#error').text(err.responseJSON.err.message);
-                    $('#error').show();
+                for (var i = 0; i < resp.count; i++) {
+                    var compileHTML = compile({
+                        id: resp.libro[i]._id,
+                        img: "https://biblioteca-181224.herokuapp.com/imagen/usuario/" + resp.usuario[i].img,
+                        nombre: resp.usuario[i].nombre,
+                        email: resp.usuario[i].email,
+                    });
+                    document.getElementById('action').innerHTML += compileHTML;
                 }
-            });
+            }
         });
-
-        $('input').on('focus', function(e) {
-            $('#error').hide();
-        })
     </script>
 </body>
 
