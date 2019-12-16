@@ -84,7 +84,6 @@
     </div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js">
     </script>
-    <p id="error" style="display: none;"></p>
     <table style="position: relative;" class="table table-striped">
         <thead>
             <tr style="text-align: center;">
@@ -93,11 +92,9 @@
                 <th scope="col">Email</th>
             </tr>
         </thead>
-        <tbody id="accion">
-
-        </tbody>
+        <tbody id="action"></tbody>
     </table>
-    <script type="text/x-handlebars-template" id="indice">
+    <script type="text/x-handlebars-template" id="index">
         <tr style="border:blue 2px solid; text-align: center;">
             <th scope="row"> <img src='{{{ img }}}' width="100px" height="150"></th>
             <td style="vertical-align: middle;"> {{{ nombre }}}</td>
@@ -107,7 +104,7 @@
 
     </script>
     <script type="text/javascript">
-        var template = document.getElementById('indice').innerHTML;
+        var template = document.getElementById('index').innerHTML;
         var compile = Handlebars.compile(template);
         $.ajax({
             type: 'GET',
@@ -124,12 +121,8 @@
                         nombre: resp.usuarios[i].nombre,
                         email: resp.usuarios[i].email,
                     });
-                    document.getElementById('acccion').innerHTML += compileHTML;
+                    document.getElementById('action').innerHTML += compileHTML;
                 }
-            },
-            error: function(err) {
-                $('#error').text(err.responseJSON.err.message);
-                $('#error').show();
             }
         });
     </script>
