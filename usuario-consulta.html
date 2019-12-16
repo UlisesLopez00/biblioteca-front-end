@@ -113,10 +113,10 @@
 
                 for (var i = 0; i < resp.count; i++) {
                     var compileHTML = compile({
-                        id: resp.libro[i]._id,
-                        img: "https://biblioteca-181224.herokuapp.com/imagen/usuario/" + resp.usuario[i].img,
-                        nombre: resp.usuario[i].nombre,
-                        email: resp.usuario[i].email,
+                        id: resp.usuarios[i]._id,
+                        img: "https://biblioteca-181224.herokuapp.com/imagen/usuario/" + resp.usuarios[i].img,
+                        nombre: resp.usuarios[i].nombre,
+                        email: resp.usuarios[i].email,
                     });
                     document.getElementById('action').innerHTML += compileHTML;
                 }

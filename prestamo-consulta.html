@@ -111,10 +111,10 @@
 
                 for (var i = 0; i < resp.count; i++) {
                     var compileHTML = compile({
-                        id: resp.prestamo[i]._id,
-                        fecha: resp.prestamo[i].fecha,
-                        usuario: resp.prestamo[i].usuario,
-                        libro: resp.prestamo[i].libro,
+                        id: resp.prestamos[i]._id,
+                        fecha: resp.prestamos[i].fecha,
+                        usuario: resp.prestamos[i].usuario,
+                        libro: resp.prestamos[i].libro,
                     });
                     document.getElementById('action').innerHTML += compileHTML;
                 }
