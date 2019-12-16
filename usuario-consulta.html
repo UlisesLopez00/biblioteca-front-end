@@ -89,9 +89,11 @@
                 <th scope="col">Email</th>
             </tr>
         </thead>
-        <tbody id="action"></tbody>
+        <tbody id="accion">
+
+        </tbody>
     </table>
-    <script type="text/x-handlebars-template" id="index">
+    <script type="text/x-handlebars-template" id="indice">
         <tr style="border:blue 2px solid; text-align: center;">
             <th scope="row"> <img src='{{{ img }}}' width="100px" height="150"></th>
             <td style="vertical-align: middle;"> {{{ nombre }}}</td>
@@ -101,7 +103,7 @@
 
     </script>
     <script type="text/javascript">
-        var template = document.getElementById('index').innerHTML;
+        var template = document.getElementById('indice').innerHTML;
         var compile = Handlebars.compile(template);
         $.ajax({
             type: 'GET',
@@ -118,7 +120,7 @@
                         nombre: resp.usuarios[i].nombre,
                         email: resp.usuarios[i].email,
                     });
-                    document.getElementById('action').innerHTML += compileHTML;
+                    document.getElementById('acccion').innerHTML += compileHTML;
                 }
             }
         });
